@@ -12,6 +12,38 @@ export default [{
     },
     children: [
         {
+            path: 'account',
+            component: () =>
+                import(/* webpackChunkName: "AccountSystem" */ "@/views/system/account"),
+            name: 'AccountSystem',
+            redirect: '/system/permission/list',
+            meta: {
+                title: '账户',
+                breadcrumb: false,
+            },
+            children: [
+                {
+                    path: 'list',
+                    component: () =>
+                        import(/* webpackChunkName: "ListAccountSystem" */ "@/views/system/account/list"),
+                    name: 'ListAccountSystem',
+                    meta: {
+                        title: '账户',
+                    },
+                },
+                {
+                    path: 'addOrUpdate',
+                    component: () =>
+                        import(/* webpackChunkName: "AddOrUpdateAccountSystem" */ "@/views/system/account/addOrUpdate"),
+                    name: 'AddOrUpdateAccountSystem',
+                    hidden: true,
+                    meta: {
+                        title: '账户添加',
+                    }
+                },
+            ]
+        },
+        {
             path: 'permission',
             component: () =>
                 import(/* webpackChunkName: "PermissionSystem" */ "@/views/system/permission"),

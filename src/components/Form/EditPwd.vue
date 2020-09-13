@@ -46,7 +46,7 @@
 
 <script>
 export default {
-  name: "EditPwd",
+  name: "FormEditPwd",
   props: {},
   filters: {},
   components: {},

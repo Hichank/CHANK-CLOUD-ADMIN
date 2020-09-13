@@ -1,6 +1,6 @@
-<!-- 系统设置 -->
+<!-- 设置 -->
 <template>
-  <div>系统设置</div>
+  <div>设置</div>
 </template>
 
 <script>

@@ -37,13 +37,7 @@ service.interceptors.request.use(config => {
 // 添加响应拦截器
 service.interceptors.response.use(response => {
     // 对响应数据做点什么
-    const { code } = response.data;
-    if (code == 200) {
-        return response.data;
-    } else {
-        console.log(`失败`)
-        return Promise.reject(response);
-    }
+    return response.data;
 }, error => {
     // 对响应错误做点什么
     console.log(`失败`)

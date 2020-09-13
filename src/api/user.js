@@ -3,7 +3,7 @@ import request from '@/utils/request.js';
 // 登录
 export const LOGIN = data => {
     return request({
-        url: "/api/user/login",
+        url: "/login",
         method: "POST",
         data
     })
@@ -13,7 +13,7 @@ export const LOGIN = data => {
 // 权限
 export const AUTH = data => {
     return request({
-        url: "/api/user/auth",
+        url: "/auth",
         method: "POST",
         data
     })

@@ -5,7 +5,7 @@
 
 <script>
 export default {
-  name: "PermissionSystem",
+  name: "AccountSystem",
   props: {},
   filters: {},
   components: {},
