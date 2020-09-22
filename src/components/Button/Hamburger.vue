@@ -8,7 +8,7 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-  name: "ButtonHamburger",
+  name: "HamburgerButton",
   props: {},
   filters: {},
   components: {},

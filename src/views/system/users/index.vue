@@ -1,16 +1,15 @@
-<!-- 权限添加 -->
+<!-- 用户管理 -->
 <template>
-  <div>权限添加</div>
+  <router-view :key="$route.path" />
 </template>
 
 <script>
 export default {
+  name: "UsersSystem",
   props: {},
   filters: {},
   components: {},
-  data() {
-    return {};
-  },
+  data: () => ({}),
   computed: {},
   watch: {},
   created() {},
@@ -26,5 +25,3 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>

@@ -33,7 +33,7 @@
 import SettingForm from "@/components/Form/Setting";
 import EditPwdForm from "@/components/Form/EditPwd";
 export default {
-  name: "MenuMine",
+  name: "MineMenu",
   props: {},
   filters: {},
   components: {
@@ -65,7 +65,7 @@ export default {
       })
         .then(async () => {
           try {
-            await this.$store.dispatch("user/logout");
+            await this.$store.dispatch("auth/logout");
             this.$router.replace({ path: "/login" });
           } catch (error) {
             console.log(error);

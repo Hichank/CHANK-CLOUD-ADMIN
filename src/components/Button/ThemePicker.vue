@@ -10,6 +10,7 @@ const version = require("element-ui/package.json").version; // element-ui versio
 const ORIGINAL_THEME = "#409EFF"; // default color
 
 export default {
+  name: "ThemePickerButton",
   data() {
     return {
       chalk: "", // content of theme-chalk css

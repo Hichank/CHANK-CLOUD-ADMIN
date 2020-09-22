@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 const REMEMBER = "REMEMBER";
+const TOKEN = "TOKEN";
 const USER_INFO = "USER_INFO";
-const AUTHS = "USER_AUTHS";
 const SIDEBAR_OPENED = "SIDEBAR_OPENED";
 const SIZE = "SIZE";
 
@@ -18,6 +18,19 @@ export const removeRemember = () => {
     return Cookies.remove(REMEMBER);
 }
 
+// TOKEN
+export const getToken = () => {
+    return localStorage.getItem(TOKEN);
+}
+
+export const setToken = (data) => {
+    return localStorage.setItem(TOKEN, data);
+}
+
+export const removeToken = () => {
+    return localStorage.removeItem(TOKEN);
+}
+
 // USER_INFO
 export const getUserInfo = () => {
     return sessionStorage.getItem(USER_INFO);
@@ -29,19 +42,6 @@ export const setUserInfo = (data) => {
 
 export const removeUserInfo = () => {
     return sessionStorage.removeItem(USER_INFO);
-}
-
-// AUTHS
-export const getAuths = () => {
-    return sessionStorage.getItem(AUTHS);
-}
-
-export const setAuths = (data) => {
-    return sessionStorage.setItem(AUTHS, data);
-}
-
-export const removeAuths = () => {
-    return sessionStorage.removeItem(AUTHS);
 }
 
 // SIDEBAR_OPENED

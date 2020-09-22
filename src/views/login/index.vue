@@ -5,12 +5,19 @@
       <div class="login-body-logo">
         <i class="el-icon-user"></i>
       </div>
-      <LoginForm />
+      <LoginForm
+        :loading="loading"
+        :form="form"
+        :rules="rules"
+        @code-change="handleCodeChange"
+        @submit="handleFormSubmit"
+      />
     </div>
   </div>
 </template>
 
 <script>
+import { createCode } from "@/utils";
 import LoginForm from "@/components/Form/Login";
 export default {
   name: "Login",
@@ -19,11 +26,49 @@ export default {
   components: {
     LoginForm,
   },
-  data: () => ({}),
+  data() {
+    var validateCode = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error("验证码不能为空"));
+      } else if (value.toUpperCase() !== this.code.toUpperCase()) {
+        return callback(new Error("验证码错误"));
+      } else {
+        callback();
+      }
+    };
+    return {
+      loading: false,
+      form: {
+        username: "",
+        password: "",
+        code: "",
+        remember: false,
+      },
+      rules: {
+        username: [{ required: true, message: "请输入邮箱", trigger: "blur" }],
+        password: [{ required: true, message: "请输入密码", trigger: "blur" }],
+        code: [{ validator: validateCode, trigger: "blur" }],
+      },
+      code: "",
+    };
+  },
   computed: {},
   watch: {},
-  created() {},
-  mounted() {},
+  created() {
+    // 判断是否有记住的账号密码
+    const { username, password, remember } = this.$store.getters.remember;
+    if (username && password && remember) {
+      this.form = {
+        ...this.form,
+        username,
+        password,
+        remember,
+      };
+    }
+  },
+  mounted() {
+    this.code = createCode("myCanvas");
+  },
   beforeCreate() {},
   beforeMount() {},
   beforeUpdate() {},
@@ -31,7 +76,28 @@ export default {
   beforeDestroy() {},
   destroyed() {},
   activated() {},
-  methods: {},
+  methods: {
+    // 重置验证码
+    handleCodeChange() {
+      this.code = createCode("myCanvas");
+    },
+
+    async handleFormSubmit() {
+      try {
+        this.loading = true;
+        await this.$store.dispatch("auth/login", this.form);
+        this.$router.push({
+          path: "/",
+        });
+      } catch (error) {
+        console.log(error);
+      } finally {
+        this.form.code = "";
+        this.code = createCode("myCanvas");
+        this.loading = false;
+      }
+    },
+  },
 };
 </script>
 

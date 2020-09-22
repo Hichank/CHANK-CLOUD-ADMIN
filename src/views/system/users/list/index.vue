@@ -1,22 +1,16 @@
-<!-- 权限 -->
+<!-- 用户列表 -->
 <template>
-  <router-view :key="key" />
+  <div>用户列表</div>
 </template>
 
 <script>
 export default {
-  name: "PermissionSystem",
+   name: "ListUsersSystem",
   props: {},
   filters: {},
   components: {},
-  data() {
-    return {};
-  },
-  computed: {
-     key() {
-      return this.$route.path;
-    }
-  },
+  data: () => ({}),
+  computed: {},
   watch: {},
   created() {},
   mounted() {},
@@ -31,5 +25,5 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 </style>

@@ -21,14 +21,10 @@ export default {
   computed: {
     ...mapGetters(["permission_routes", "sidebar"]),
     style() {
-      if (this.permission_routes && this.permission_routes.length > 0) {
-        if (this.sidebar.opened) {
-          return { paddingLeft: `${this.sidebar.width}px` };
-        } else {
-          return { paddingLeft: `${65}px` };
-        }
+      if (this.sidebar.opened) {
+        return { paddingLeft: `${this.sidebar.width}px` };
       } else {
-        return { paddingLeft: 0 };
+        return { paddingLeft: `${65}px` };
       }
     },
   },

@@ -1,13 +1,13 @@
 const getters = {
     // 登录信息
-    history: state => state.user.history,
+    remember: state => state.auth.remember,
     // 用户信息
-    id: state => state.user.id,
-    token: state => state.user.token,
-    username: state => state.user.username,
+    id: state => state.auth.id,
+    token: state => state.auth.token,
+    username: state => state.auth.username,
 
     // 用户权限
-    auths: state => state.user.auths,
+    auths: state => state.auth.auths,
     // 权限路由
     permission_routes: state => state.permission.routes,
 

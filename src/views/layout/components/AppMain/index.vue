@@ -2,7 +2,7 @@
 <template>
   <div class="logout-main-container">
     <transition name="fade-transform" mode="out-in">
-      <router-view :key="key" />
+      <router-view :key="$route.path" />
     </transition>
     <el-backtop target=".logout-main-container" :right="50" :bottom="50"></el-backtop>
   </div>
@@ -17,11 +17,7 @@ export default {
   data() {
     return {};
   },
-  computed: {
-    key() {
-      return this.$route.path;
-    },
-  },
+  computed: {},
   watch: {},
   created() {},
   mounted() {},

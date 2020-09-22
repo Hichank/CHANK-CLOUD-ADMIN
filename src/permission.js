@@ -12,7 +12,7 @@ router.beforeEach(async (to, from, next) => {
     // 动画开始
     NProgress.start();
     // 检查是否已经登录
-    if (store.getters.id && store.getters.token) {
+    if (store.getters.token) {
         // 已登录
         if (to.path === '/login') {
             next({ path: '/' });
@@ -22,7 +22,7 @@ router.beforeEach(async (to, from, next) => {
                 next();
             } else {
                 try {
-                    const auths = await store.dispatch('user/getAuths');
+                    const { auths } = await store.dispatch('auth/user');
                     if (auths && auths.length > 0) {
                         const accessRoutes = await store.dispatch('permission/generateRoutes', auths);
                         router.addRoutes(accessRoutes);
@@ -36,7 +36,6 @@ router.beforeEach(async (to, from, next) => {
                     NProgress.done();
                 }
             }
-
         }
     } else {
         // 未登录

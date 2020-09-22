@@ -6,7 +6,7 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-  name: "ButtonSidebarWidth",
+  name: "SidebarWidthButton",
   props: {},
   filters: {},
   components: {},

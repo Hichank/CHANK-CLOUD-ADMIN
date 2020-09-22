@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  name: "TableAccount",
+  name: "AccountTable",
   props: {
     data: {
       type: Array,

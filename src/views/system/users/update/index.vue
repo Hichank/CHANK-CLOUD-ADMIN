@@ -1,17 +1,15 @@
-<!-- 权限列表 -->
+<!-- 添加/编辑用户 -->
 <template>
-  <div>权限列表</div>
+  <div>添加/编辑用户</div>
 </template>
-
 <script>
+
 export default {
-  name: "ListPermissionSystem",
+  name: "UpdateUsersSystem",
   props: {},
   filters: {},
   components: {},
-  data() {
-    return {};
-  },
+  data: () => ({}),
   computed: {},
   watch: {},
   created() {},

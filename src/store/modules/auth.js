@@ -1,9 +1,13 @@
 import { resetRouter } from '@/router'
-import { LOGIN, AUTH } from '@/api/user';
+import { AUTH_LOGIN } from '@/api/auth';
 import { DEFAULT_AESKEY } from '@/config';
 import { encrypt, decrypt } from '@/utils/crypto';
 import {
-    setUserInfo,
+    getToken,
+    setToken,
+    removeToken,
+
+    // setUserInfo,
     getUserInfo,
     removeUserInfo,
 
@@ -13,16 +17,16 @@ import {
 } from '@/utils/auth';
 
 const state = {
-    history: getRemember() && decrypt(getRemember(), DEFAULT_AESKEY) || {},
+    remember: getRemember() && decrypt(getRemember(), DEFAULT_AESKEY) || {},
+    token: getToken() || '',
     id: getUserInfo() && decrypt(getUserInfo(), DEFAULT_AESKEY) && decrypt(getUserInfo(), DEFAULT_AESKEY).id || '',
-    token: getUserInfo() && decrypt(getUserInfo(), DEFAULT_AESKEY) && decrypt(getUserInfo(), DEFAULT_AESKEY).token || '',
     username: getUserInfo() && decrypt(getUserInfo(), DEFAULT_AESKEY) && decrypt(getUserInfo(), DEFAULT_AESKEY).username || '',
     auths: []
 }
 
 const mutations = {
-    SET_HISTORY: (state, data) => {
-        state.history = data;
+    SET_REMEMBER: (state, data) => {
+        state.remember = data;
     },
     SET_ID: (state, data) => {
         state.id = data;
@@ -41,26 +45,23 @@ const mutations = {
 const actions = {
     // 登录
     login({ commit }, options) {
-        const { email, password, remember } = options;
+        const { username, password, remember } = options;
         return new Promise((resolve, reject) => {
-            LOGIN({ email: email.trim(), password })
+            AUTH_LOGIN({ username, password })
                 .then(response => {
+                    console.log(response)
                     const { data } = response;
                     if (data) {
                         commit('SET_TOKEN', data.token);
-                        commit('SET_ID', data.id);
-                        commit('SET_USERNAME', data.username);
-
-                        // 设置sessionStorage
-                        setUserInfo(encrypt(data, DEFAULT_AESKEY));
+                        setToken(data.token);
 
                         if (remember) {
                             // 记住账号密码
-                            commit('SET_HISTORY', { email, password, remember });
-                            setRemember(encrypt({ email, password, remember }, DEFAULT_AESKEY))
+                            commit('SET_REMEMBER', { username, password, remember });
+                            setRemember(encrypt({ username, password, remember }, DEFAULT_AESKEY))
                         } else {
                             // 删除记住账号密码
-                            commit('SET_HISTORY', {});
+                            commit('SET_REMEMBER', {});
                             removeRemember()
                         }
                         resolve(response);
@@ -72,40 +73,27 @@ const actions = {
         })
     },
 
+    user({ commit }) {
+        return new Promise((resolve) => {
+            commit("SET_AUTHS", ["SUCCESS_101", "SUCCESS_1011", "SUCCESS_1012"])
+            resolve({
+                auths: ["SUCCESS_101", "SUCCESS_1011", "SUCCESS_1012"]
+            });
+        })
+    },
+
     // 注销
     logout({ commit }) {
         return new Promise((resolve) => {
             commit('SET_TOKEN', '');
             commit('SET_ID', '');
             commit('SET_USERNAME', '');
+            removeToken();
             removeUserInfo();
             resetRouter();
             resolve();
         })
     },
-
-    // 获取权限
-    getAuths({ commit }, options) {
-        return new Promise((resolve, reject) => {
-            AUTH(options)
-                .then(response => {
-                    const { data } = response;
-                    if (data) {
-                        const auths = [];
-                        for (const key in data) {
-                            if (data[key]) {
-                                auths.push(key)
-                            }
-                        }
-                        commit("SET_AUTHS", auths)
-                        resolve(auths);
-                    } else {
-                        reject()
-                    }
-                })
-                .catch(error => reject(error))
-        })
-    }
 }
 
 export default {
