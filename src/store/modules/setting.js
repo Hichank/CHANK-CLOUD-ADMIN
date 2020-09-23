@@ -4,7 +4,7 @@ import {
     setSidebarOpened,
     getSize,
     setSize,
-} from '@/utils/auth';
+} from '@/utils';
 
 const state = {
     theme: variables.theme,

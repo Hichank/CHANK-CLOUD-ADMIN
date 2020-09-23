@@ -2,12 +2,12 @@ import { asyncRoutes, constantRoutes } from '@/router';
 
 /**
  * 使用meta.code确定当前用户是否具有权限
- * @param auths
+ * @param roles
  * @param route
  */
-function hasPermission(auths, route) {
+function hasPermission(roles, route) {
     if (route.meta && route.meta.code) {
-        return auths.some(role => route.meta.code === role);
+        return roles.some(role => route.meta.roles.includes(role));
     } else {
         return true;
     }
@@ -16,19 +16,19 @@ function hasPermission(auths, route) {
 /**
  * 通过递归过滤异步路由表
  * @param routes asyncRoutes
- * @param auths
+ * @param roles
  */
-export function filterAsyncRoutes(routes, auths) {
+export function filterAsyncRoutes(routes, roles) {
     const res = [];
     routes.forEach(route => {
-        const tmp = { ...route };
-        if (hasPermission(auths, tmp)) {
+        const tmp = { ...route }
+        if (hasPermission(roles, tmp)) {
             if (tmp.children) {
-                tmp.children = filterAsyncRoutes(tmp.children, auths);
+                tmp.children = filterAsyncRoutes(tmp.children, roles)
             }
-            res.push(tmp);
+            res.push(tmp)
         }
-    });
+    })
     return res;
 }
 
@@ -46,9 +46,9 @@ const mutations = {
 
 const actions = {
     // 过滤权限路由
-    generateRoutes({ commit }, auths) {
+    generateRoutes({ commit }, roles) {
         return new Promise(resolve => {
-            const accessedRoutes = filterAsyncRoutes(asyncRoutes, auths);
+            const accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
             commit('SET_ROUTES', accessedRoutes);
             resolve(accessedRoutes);
         })

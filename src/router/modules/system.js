@@ -19,6 +19,7 @@ export default [{
             meta: {
                 title: '用户管理',
                 breadcrumb: false,
+                icon: "el-icon-user-solid",
             },
             children: [
                 {
@@ -31,7 +32,7 @@ export default [{
                     },
                 },
                 {
-                    path: 'add',
+                    path: 'update',
                     component: () =>
                         import(/* webpackChunkName: "AddUsersSystem" */ "@/views/system/users/update"),
                     name: 'AddUsersSystem',
@@ -41,7 +42,7 @@ export default [{
                     }
                 },
                 {
-                    path: 'edit/:id',
+                    path: 'update/:id',
                     component: () =>
                         import(/* webpackChunkName: "EditUsersSystem" */ "@/views/system/users/update"),
                     name: 'EditUsersSystem',

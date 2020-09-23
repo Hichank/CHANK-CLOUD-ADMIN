@@ -1,27 +1,24 @@
 import { resetRouter } from '@/router'
-import { AUTH_LOGIN } from '@/api/auth';
+import { AUTH_LOGIN, AUTH_USER } from '@/api';
 import { DEFAULT_AESKEY } from '@/config';
-import { encrypt, decrypt } from '@/utils/crypto';
+import { encrypt, decrypt } from '@/utils';
 import {
     getToken,
     setToken,
     removeToken,
 
-    // setUserInfo,
-    getUserInfo,
-    removeUserInfo,
 
     getRemember,
     setRemember,
     removeRemember
-} from '@/utils/auth';
+} from '@/utils';
 
 const state = {
     remember: getRemember() && decrypt(getRemember(), DEFAULT_AESKEY) || {},
     token: getToken() || '',
-    id: getUserInfo() && decrypt(getUserInfo(), DEFAULT_AESKEY) && decrypt(getUserInfo(), DEFAULT_AESKEY).id || '',
-    username: getUserInfo() && decrypt(getUserInfo(), DEFAULT_AESKEY) && decrypt(getUserInfo(), DEFAULT_AESKEY).username || '',
-    auths: []
+    id: '',
+    username: '',
+    roles: []
 }
 
 const mutations = {
@@ -37,8 +34,8 @@ const mutations = {
     SET_USERNAME: (state, data) => {
         state.username = data;
     },
-    SET_AUTHS: (state, data) => {
-        state.auths = data;
+    SET_ROLES: (state, data) => {
+        state.roles = data;
     },
 }
 
@@ -50,10 +47,10 @@ const actions = {
             AUTH_LOGIN({ username, password })
                 .then(response => {
                     console.log(response)
-                    const { data } = response;
-                    if (data) {
-                        commit('SET_TOKEN', data.token);
-                        setToken(data.token);
+                    const { token } = response.data;
+                    if (token) {
+                        commit('SET_TOKEN', token);
+                        setToken(token);
 
                         if (remember) {
                             // 记住账号密码
@@ -74,11 +71,24 @@ const actions = {
     },
 
     user({ commit }) {
-        return new Promise((resolve) => {
-            commit("SET_AUTHS", ["SUCCESS_101", "SUCCESS_1011", "SUCCESS_1012"])
-            resolve({
-                auths: ["SUCCESS_101", "SUCCESS_1011", "SUCCESS_1012"]
-            });
+        return new Promise((resolve, reject) => {
+            AUTH_USER()
+                .then(response => {
+                    const { _id, username } = response.data;
+
+                    commit('SET_ID', _id);
+                    commit("SET_USERNAME", username);
+                    commit("SET_ROLES", ['admin']);
+
+                    resolve({
+                        ...response.data,
+                        roles: ['admin']
+                    });
+                })
+                .catch(error => {
+                    console.log(error)
+                    reject(error);
+                })
         })
     },
 
@@ -89,7 +99,6 @@ const actions = {
             commit('SET_ID', '');
             commit('SET_USERNAME', '');
             removeToken();
-            removeUserInfo();
             resetRouter();
             resolve();
         })

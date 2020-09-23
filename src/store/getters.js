@@ -5,9 +5,8 @@ const getters = {
     id: state => state.auth.id,
     token: state => state.auth.token,
     username: state => state.auth.username,
-
-    // 用户权限
-    auths: state => state.auth.auths,
+    roles: state => state.auth.roles,
+    
     // 权限路由
     permission_routes: state => state.permission.routes,
 

@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { BASE_URL } from '@/config';
 import store from '@/store';
-import { whiteList } from '@/constant'
+import { whiteList } from '@/constant';
+import { Notification } from 'element-ui';
 
-const service = axios.create({
+export const service = axios.create({
     baseURL: BASE_URL,
     timeout: 3000,
     headers: {
@@ -39,8 +40,11 @@ service.interceptors.response.use(response => {
     return response;
 }, error => {
     // 对响应错误做点什么
-    console.log(`失败`)
+    Notification({
+        title: "错误",
+        message: error.response.data.message || "服务器错误",
+        type: 'error',
+        duration: 3 * 1000
+    })
     return Promise.reject(error);
 });
-
-export default service;
