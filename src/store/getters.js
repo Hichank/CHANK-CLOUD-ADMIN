@@ -2,9 +2,11 @@ const getters = {
     // 登录信息
     remember: state => state.auth.remember,
     // 用户信息
-    id: state => state.auth.id,
     token: state => state.auth.token,
+
+    id: state => state.auth.id,
     username: state => state.auth.username,
+    avatar: state => state.auth.avatar,
     roles: state => state.auth.roles,
     
     // 权限路由

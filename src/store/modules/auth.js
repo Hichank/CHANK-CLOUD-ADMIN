@@ -18,6 +18,7 @@ const state = {
     token: getToken() || '',
     id: '',
     username: '',
+    avatar: '',
     roles: []
 }
 
@@ -25,14 +26,18 @@ const mutations = {
     SET_REMEMBER: (state, data) => {
         state.remember = data;
     },
-    SET_ID: (state, data) => {
-        state.id = data;
-    },
+
     SET_TOKEN: (state, data) => {
         state.token = data;
     },
+    SET_ID: (state, data) => {
+        state.id = data;
+    },
     SET_USERNAME: (state, data) => {
         state.username = data;
+    },
+    SET_AVATAR: (state, data) => {
+        state.avatar = data;
     },
     SET_ROLES: (state, data) => {
         state.roles = data;
@@ -74,10 +79,11 @@ const actions = {
         return new Promise((resolve, reject) => {
             AUTH_USER()
                 .then(response => {
-                    const { _id, username } = response.data;
+                    const { _id, username, avatar } = response.data;
 
                     commit('SET_ID', _id);
                     commit("SET_USERNAME", username);
+                    commit("SET_AVATAR", avatar);
                     commit("SET_ROLES", ['admin']);
 
                     resolve({

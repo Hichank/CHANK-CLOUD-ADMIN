@@ -31,7 +31,7 @@ router.beforeEach(async (to, from, next) => {
                         next();
                     }
                 } catch (error) {
-                    await store.dispatch('user/logout');
+                    await store.dispatch('auth/logout');
                     console.log("没权限")
                     NProgress.done();
                 }

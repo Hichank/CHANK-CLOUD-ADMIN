@@ -1,4 +1,4 @@
-<!-- 用户列表 -->
+<!-- 权限列表 -->
 <template>
   <div style="padding: 20px; background: #fff">
     <CrudTable
@@ -6,7 +6,6 @@
       :data="data.data || []"
       :options="options || []"
       :sizes="[10, 20, 30]"
-      :search="params.where"
       :current="params.page || 0"
       :size="params.limit || 0"
       :total="data.total || 0"
@@ -22,9 +21,9 @@
 
 <script>
 import CrudTable from "@/components/Table/Crud";
-import { USERS_GET, USERS_DELECT } from "@/api";
+import { ROLES_GET, ROLES_DELECT } from "@/api";
 export default {
-  name: "ListUsersSystem",
+  name: "ListRolesSystem",
   props: {},
   filters: {},
   components: {
@@ -36,27 +35,12 @@ export default {
       where: {},
       page: 1,
       limit: 10,
+      
     },
     data: {},
     options: [
       { align: "center", prop: "_id", label: "ID" },
-      {
-        align: "center",
-        prop: "username",
-        label: "用户名",
-        search: true,
-        regex: true,
-      },
-      {
-        align: "center",
-        prop: "avatar",
-        label: "用户头像",
-        width: 80,
-        image: {
-          fit: "scale-down",
-        },
-      },
-
+      { align: "center", prop: "name", label: "权限名称", search: true },
       { align: "center", prop: "createdAt", label: "创建时间" },
       { align: "center", prop: "updatedAt", label: "更新时间" },
     ],
@@ -79,7 +63,7 @@ export default {
     async getData() {
       try {
         this.loading = true;
-        const { data } = await USERS_GET({ query: this.params });
+        const { data } = await ROLES_GET({ query: this.params });
         this.data = data;
       } catch (error) {
         this.data = {};
@@ -92,13 +76,13 @@ export default {
     // 新增
     handleAdd() {
       this.$router.push({
-        name: "AddUsersSystem",
+        name: "AddRolesSystem",
       });
     },
     // 编辑
     handleEdit(item) {
       this.$router.push({
-        name: "EditUsersSystem",
+        name: "EditRolesSystem",
         params: {
           id: item._id,
         },
@@ -112,7 +96,7 @@ export default {
         type: "warning",
       })
         .then(async () => {
-          await USERS_DELECT(item._id);
+          await ROLES_DELECT(item._id);
           this.getData();
         })
         .catch(() => {});
@@ -123,7 +107,6 @@ export default {
       this.params.where = where;
       this.getData();
     },
-
     // 分页页码
     handleCurrentChange(page) {
       this.params.page = page;

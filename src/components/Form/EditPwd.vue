@@ -1,33 +1,27 @@
 <!-- 修改密码表单 -->
 <template>
-  <el-form :model="form" :rules="rules" :size="$store.getters.size" ref="editPasswordForm">
-    <el-form-item prop="oldpassword">
-      <el-input
-        prefix-icon="el-icon-lock"
-        type="password"
-        v-model.trim="form.oldpassword"
-        autocomplete="off"
-        clearable
-        show-password
-        placeholder="原密码"
-      ></el-input>
-    </el-form-item>
-    <el-form-item prop="newpassword">
+  <el-form
+    :model="form"
+    :rules="rules"
+    :size="$store.getters.size"
+    ref="editPwdForm"
+  >
+    <el-form-item prop="password">
       <el-input
         prefix-icon="el-icon-unlock"
         type="password"
-        v-model.trim="form.newpassword"
+        v-model.trim="form.password"
         autocomplete="off"
         clearable
         show-password
         placeholder="新密码"
       ></el-input>
     </el-form-item>
-    <el-form-item prop="checkpassword">
+    <el-form-item prop="comfirmPassword">
       <el-input
         prefix-icon="el-icon-key"
         type="password"
-        v-model.trim="form.checkpassword"
+        v-model.trim="form.comfirmPassword"
         autocomplete="off"
         clearable
         show-password
@@ -37,58 +31,35 @@
     <div class="text-right">
       <el-button
         :size="$store.getters.size"
+        :loading="loading"
         type="primary"
-        @click="submitForm('editPasswordForm')"
-      >提 交</el-button>
+        @click="submitForm('editPwdForm')"
+        >提 交</el-button
+      >
     </div>
   </el-form>
 </template>
 
 <script>
 export default {
-  name: "FormEditPwd",
-  props: {},
+  name: "EditPwdForm",
+  props: {
+    form: {
+      type: Object,
+      required: true,
+    },
+    rules: {
+      type: Object,
+      required: true,
+    },
+    loading: {
+      type: Boolean,
+      required: true,
+    },
+  },
   filters: {},
   components: {},
-  data() {
-    var validatePassword = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请输入密码"));
-      } else {
-        if (this.form.checkpassword !== "") {
-          this.$refs.editPasswordForm.validateField("checkpassword");
-        }
-        callback();
-      }
-    };
-    var validateCheckPassword = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请确认密码"));
-      } else if (value !== this.form.newpassword) {
-        callback(new Error("两次输入密码不一致!"));
-      } else {
-        callback();
-      }
-    };
-    return {
-      form: {
-        oldpassword: "",
-        newpassword: "",
-        checkpassword: "",
-      },
-      rules: {
-        oldpassword: [
-          { required: true, message: "请输入旧密码", trigger: "blur" },
-        ],
-        newpassword: [
-          { required: true, validator: validatePassword, trigger: "blur" },
-        ],
-        checkpassword: [
-          { required: true, validator: validateCheckPassword, trigger: "blur" },
-        ],
-      },
-    };
-  },
+  data: () => ({}),
   computed: {},
   watch: {},
   created() {},
@@ -104,7 +75,7 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          console.log(this.form);
+          this.$emit("submit");
         } else {
           console.log("error submit!!");
           return false;

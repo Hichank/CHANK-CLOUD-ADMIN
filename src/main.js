@@ -19,6 +19,9 @@ import './styles/index.scss';
 //   mockXHR()
 // }
 
+import { service } from './utils'
+Vue.prototype.$http = service;
+
 Vue.config.productionTip = false;
 
 new Vue({
