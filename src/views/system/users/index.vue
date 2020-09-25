@@ -5,7 +5,7 @@
 
 <script>
 export default {
-  name: "UsersSystem",
+  name: "SystemUsers",
   props: {},
   filters: {},
   components: {},

@@ -8,56 +8,63 @@ export default [{
     meta: {
         title: '系统管理',
         icon: "el-icon-setting",
+        code: "ROUTE-SYSTEM"
     },
     children: [
+        // 用户管理
         {
             path: 'users',
-            name: 'UsersSystem',
+            name: 'SystemUsers',
             component: () =>
-                import(/* webpackChunkName: "UsersSystem" */ "@/views/system/users"),
+                import(/* webpackChunkName: "SystemUsers" */ "@/views/system/users"),
             redirect: '/system/users/list',
             meta: {
                 title: '用户管理',
                 breadcrumb: false,
+                code: "ROUTE-SYSTEM-USERS"
             },
             children: [
                 {
                     path: 'list',
+                    name: 'SystemUsersList',
                     component: () =>
-                        import(/* webpackChunkName: "ListUsersSystem" */ "@/views/system/users/list"),
-                    name: 'ListUsersSystem',
+                        import(/* webpackChunkName: "SystemUsersList" */ "@/views/system/users/list"),
                     meta: {
                         title: '用户管理',
                         icon: "el-icon-user-solid",
+                        code: "ROUTE-SYSTEM-USERS"
                     },
                 },
                 {
                     path: 'update',
-                    component: () =>
-                        import(/* webpackChunkName: "AddUsersSystem" */ "@/views/system/users/update"),
-                    name: 'AddUsersSystem',
+                    name: 'SystemUsersAdd',
                     hidden: true,
+                    component: () =>
+                        import(/* webpackChunkName: "SystemUsersAdd" */ "@/views/system/users/update"),
                     meta: {
                         title: '添加用户',
+                        code: "ROUTE-SYSTEM-USERS-ADD"
                     }
                 },
                 {
                     path: 'update/:id',
-                    component: () =>
-                        import(/* webpackChunkName: "EditUsersSystem" */ "@/views/system/users/update"),
-                    name: 'EditUsersSystem',
+                    name: 'SystemUsersEdit',
                     hidden: true,
+                    component: () =>
+                        import(/* webpackChunkName: "SystemUsersEdit" */ "@/views/system/users/update"),
                     meta: {
                         title: '编辑用户',
+                        code: "ROUTE-SYSTEM-USERS-EDIT"
                     }
                 },
             ]
         },
+        // 权限管理
         {
             path: 'roles',
-            name: 'RolesSystem',
+            name: 'SystemRoles',
             component: () =>
-                import(/* webpackChunkName: "RolesSystem" */ "@/views/system/roles"),
+                import(/* webpackChunkName: "SystemRoles" */ "@/views/system/roles"),
             redirect: '/system/roles/list',
             meta: {
                 title: '权限管理',
@@ -66,9 +73,9 @@ export default [{
             children: [
                 {
                     path: 'list',
+                    name: 'SystemRolesList',
                     component: () =>
-                        import(/* webpackChunkName: "ListRolesSystem" */ "@/views/system/roles/list"),
-                    name: 'ListRolesSystem',
+                        import(/* webpackChunkName: "SystemRolesList" */ "@/views/system/roles/list"),
                     meta: {
                         title: '权限管理',
                         icon: "el-icon-key",
@@ -76,9 +83,9 @@ export default [{
                 },
                 {
                     path: 'update',
+                    name: 'SystemRolesAdd',
                     component: () =>
-                        import(/* webpackChunkName: "AddRolesSystem" */ "@/views/system/roles/update"),
-                    name: 'AddRolesSystem',
+                        import(/* webpackChunkName: "SystemRolesAdd" */ "@/views/system/roles/update"),
                     hidden: true,
                     meta: {
                         title: '添加权限',
@@ -86,9 +93,9 @@ export default [{
                 },
                 {
                     path: 'update/:id',
+                    name: 'SystemRolesEdit',
                     component: () =>
-                        import(/* webpackChunkName: "EditRolesSystem" */ "@/views/system/roles/update"),
-                    name: 'EditRolesSystem',
+                        import(/* webpackChunkName: "SystemRolesEdit" */ "@/views/system/roles/update"),
                     hidden: true,
                     meta: {
                         title: '编辑权限',

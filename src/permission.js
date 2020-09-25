@@ -1,3 +1,4 @@
+import { Notification } from 'element-ui';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import router from './router';
@@ -31,8 +32,10 @@ router.beforeEach(async (to, from, next) => {
                         next();
                     }
                 } catch (error) {
+                    console.log(error)
+                    Notification.error(error || '无权限');
                     await store.dispatch('auth/logout');
-                    console.log("没权限")
+                    next({ path: '/login' });
                     NProgress.done();
                 }
             }

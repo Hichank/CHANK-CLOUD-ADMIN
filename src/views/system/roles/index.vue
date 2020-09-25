@@ -5,7 +5,7 @@
 
 <script>
 export default {
-  name: "RolesSystem",
+  name: "SystemRoles",
   props: {},
   filters: {},
   components: {},

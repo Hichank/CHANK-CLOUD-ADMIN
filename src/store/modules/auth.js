@@ -1,4 +1,4 @@
-import { resetRouter } from '@/router'
+import router, { resetRouter } from '@/router'
 import { AUTH_LOGIN, AUTH_USER } from '@/api';
 import { DEFAULT_AESKEY } from '@/config';
 import { encrypt, decrypt } from '@/utils';
@@ -75,20 +75,25 @@ const actions = {
         })
     },
 
+    // 获取个人信息
     user({ commit }) {
         return new Promise((resolve, reject) => {
             AUTH_USER()
                 .then(response => {
-                    const { _id, username, avatar } = response.data;
+                    const { _id, username, avatar, roles } = response.data;
 
                     commit('SET_ID', _id);
                     commit("SET_USERNAME", username);
                     commit("SET_AVATAR", avatar);
-                    commit("SET_ROLES", ['admin']);
 
+                    // roles must be a non-empty array
+                    if (!roles || roles.length <= 0) {
+                        reject('用户必须有权限')
+                    } else {
+                        commit("SET_ROLES", roles.map(h => h.routes.map(v => v.code)).flat());
+                    }
                     resolve({
-                        ...response.data,
-                        roles: ['admin']
+                        roles: roles.map(h => h.routes.map(v => v.code)).flat()
                     });
                 })
                 .catch(error => {
@@ -109,6 +114,16 @@ const actions = {
             resolve();
         })
     },
+
+    // 改变权限/权限路由
+    async changeRoles({ dispatch }) {
+        const { roles } = await dispatch('user')
+        resetRouter()
+        // generate accessible routes map based on roles
+        const accessRoutes = await dispatch('permission/generateRoutes', roles, { root: true })
+        // dynamically add accessible routes
+        router.addRoutes(accessRoutes)
+    }
 }
 
 export default {

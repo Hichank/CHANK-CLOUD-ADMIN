@@ -15,7 +15,7 @@
 import SystemUsersForm from "@/components/Form/System/Users";
 import { ROLES_GET, USERS_GET_ID, USERS_POST, USERS_PUT } from "@/api";
 export default {
-  name: "UpdateUsersSystem",
+  name: "SystemUsersUpdate",
   props: {},
   filters: {},
   components: {
@@ -112,9 +112,8 @@ export default {
             roles,
             avatar,
           });
-          if (_id === this.$store.getters.id) {
-            this.$store.dispatch("auth/user");
-          }
+          // 重新加载用户信息/刷新路由
+          await this.$store.dispatch("auth/changeRoles");
         } else {
           // 新增
           await USERS_POST({

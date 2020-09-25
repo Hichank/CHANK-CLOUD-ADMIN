@@ -4,6 +4,23 @@
     <el-form-item label="权限名称" prop="name" label-width="80px">
       <el-input v-model.trim="form.name" clearable></el-input>
     </el-form-item>
+    <el-form-item label="权限路由" prop="routes" label-width="80px">
+      <el-select
+        v-model="form.routes"
+        multiple
+        placeholder="请选择"
+        style="width: 100%"
+        clearable
+      >
+        <el-option
+          v-for="item in options.routes || []"
+          :key="item._id"
+          :label="item.name"
+          :value="item._id"
+        >
+        </el-option>
+      </el-select>
+    </el-form-item>
     <el-form-item label-width="80px">
       <el-button @click="$router.back()">返回</el-button>
       <el-button
@@ -22,6 +39,10 @@ export default {
   props: {
     loading: {
       type: Boolean,
+      required: true,
+    },
+    options: {
+      type: Object,
       required: true,
     },
     form: {

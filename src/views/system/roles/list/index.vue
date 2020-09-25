@@ -23,7 +23,7 @@
 import CrudTable from "@/components/Table/Crud";
 import { ROLES_GET, ROLES_DELECT } from "@/api";
 export default {
-  name: "ListRolesSystem",
+  name: "SystemRolesList",
   props: {},
   filters: {},
   components: {
@@ -35,7 +35,6 @@ export default {
       where: {},
       page: 1,
       limit: 10,
-      
     },
     data: {},
     options: [
@@ -76,16 +75,13 @@ export default {
     // 新增
     handleAdd() {
       this.$router.push({
-        name: "AddRolesSystem",
+        path: "/system/roles/update",
       });
     },
     // 编辑
     handleEdit(item) {
       this.$router.push({
-        name: "EditRolesSystem",
-        params: {
-          id: item._id,
-        },
+        path: `/system/roles/update/${item._id}`,
       });
     },
     // 删除

@@ -31,11 +31,20 @@
       <template v-for="(option, index) in options">
         <el-table-column v-bind="option" :key="index">
           <template slot-scope="scope">
-            <template v-if="option.image">
+            <template v-if="option.tags">
+              <el-tag
+                :style="{ margin: '5px' }"
+                v-bind="option.tags"
+                v-for="(item, index) in scope.row[option.prop]"
+                :key="index"
+              >
+                {{ item[option.tags.tagName] }}
+              </el-tag>
+            </template>
+            <template v-else-if="option.image">
               <el-image
+                v-bind="option.tags"
                 :src="scope.row[option.prop]"
-                :fit="option.image.fit"
-                :lazy="option.image.lazy"
                 :preview-src-list="[scope.row[option.prop]]"
               >
                 <template slot="error">
@@ -121,7 +130,7 @@ export default {
   computed: {
     search() {
       const where = JSON.parse(JSON.stringify(this.searchForm));
-      const { prop } = this.options.find((h) => h.regex);
+      const { prop } = this.options.find((h) => h.search && h.search.regex);
       if (prop && where[prop]) {
         where[prop] = { $regex: where[prop] };
       }
