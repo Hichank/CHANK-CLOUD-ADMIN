@@ -28,7 +28,7 @@
         placeholder="确认密码"
       ></el-input>
     </el-form-item>
-    <div class="text-right">
+    <div class="text-align-right">
       <el-button
         :size="$store.getters.size"
         :loading="loading"

@@ -1,22 +1,13 @@
-<!-- 模板顶部导航 -->
+<!-- 搜索表单 -->
 <template>
-  <div class="p-10 display-flex align-items-center justify-content-space-between">
-    <Breadcrumb />
-    <Mine />
-  </div>
+  <div>搜索表单</div>
 </template>
 
 <script>
-import Mine from "@/components/Menu/Mine";
-import Breadcrumb from "@/components/Menu/Breadcrumb";
 export default {
-  name: "LayoutNavbar",
   props: {},
   filters: {},
-  components: {
-    Mine,
-    Breadcrumb,
-  },
+  components: {},
   data: () => ({}),
   computed: {},
   watch: {},

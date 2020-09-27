@@ -69,6 +69,7 @@ export default [{
             meta: {
                 title: '权限管理',
                 breadcrumb: false,
+                code: "ROUTE-SYSTEM-ROLES"
             },
             children: [
                 {
@@ -79,6 +80,7 @@ export default [{
                     meta: {
                         title: '权限管理',
                         icon: "el-icon-key",
+                        code: "ROUTE-SYSTEM-ROLES"
                     },
                 },
                 {
@@ -89,6 +91,7 @@ export default [{
                     hidden: true,
                     meta: {
                         title: '添加权限',
+                        code: "ROUTE-SYSTEM-ROLES-ADD"
                     }
                 },
                 {
@@ -99,6 +102,7 @@ export default [{
                     hidden: true,
                     meta: {
                         title: '编辑权限',
+                        code: "ROUTE-SYSTEM-ROLES-EDIT"
                     }
                 },
             ]

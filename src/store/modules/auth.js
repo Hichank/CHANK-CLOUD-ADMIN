@@ -19,14 +19,14 @@ const state = {
     id: '',
     username: '',
     avatar: '',
-    roles: []
+    roles: [],
+    routes: []
 }
 
 const mutations = {
     SET_REMEMBER: (state, data) => {
         state.remember = data;
     },
-
     SET_TOKEN: (state, data) => {
         state.token = data;
     },
@@ -41,6 +41,9 @@ const mutations = {
     },
     SET_ROLES: (state, data) => {
         state.roles = data;
+    },
+    SET_ROUTES: (state, data) => {
+        state.routes = data;
     },
 }
 
@@ -90,10 +93,11 @@ const actions = {
                     if (!roles || roles.length <= 0) {
                         reject('用户必须有权限')
                     } else {
-                        commit("SET_ROLES", roles.map(h => h.routes.map(v => v.code)).flat());
+                        commit("SET_ROLES", roles);
+                        commit("SET_ROUTES", roles.map(h => h.routes.map(v => v.code)).flat());
                     }
                     resolve({
-                        roles: roles.map(h => h.routes.map(v => v.code)).flat()
+                        routes: roles.map(h => h.routes.map(v => v.code)).flat()
                     });
                 })
                 .catch(error => {
@@ -109,6 +113,8 @@ const actions = {
             commit('SET_TOKEN', '');
             commit('SET_ID', '');
             commit('SET_USERNAME', '');
+            commit('SET_ROLES', []);
+            commit('SET_ROUTES', []);
             removeToken();
             resetRouter();
             resolve();
@@ -117,13 +123,13 @@ const actions = {
 
     // 改变权限/权限路由
     async changeRoles({ dispatch }) {
-        const { roles } = await dispatch('user')
+        const { routes } = await dispatch('user')
         resetRouter()
         // generate accessible routes map based on roles
-        const accessRoutes = await dispatch('permission/generateRoutes', roles, { root: true })
+        const accessRoutes = await dispatch('permission/generateRoutes', routes, { root: true })
         // dynamically add accessible routes
         router.addRoutes(accessRoutes)
-    }
+    },
 }
 
 export default {

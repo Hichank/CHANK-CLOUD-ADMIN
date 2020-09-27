@@ -9,7 +9,6 @@ import './filters';
 
 // 加载 plugins
 import './plugins/element-ui';
-import './plugins/avue';
 
 // 加载 base.scss
 import './styles/index.scss';

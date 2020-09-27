@@ -22,7 +22,7 @@
       ></el-input>
     </el-form-item>
     <el-form-item prop="code">
-      <div class="dfr-center">
+      <div class="display-flex align-items-center">
         <div class="flex-1">
           <el-input
             prefix-icon="el-icon-key"
@@ -34,7 +34,7 @@
           ></el-input>
         </div>
         <canvas
-          class="ml5 br4 pointer"
+          class="m-l-5 br-4 c-pointer"
           id="myCanvas"
           width="120"
           height="40"
@@ -43,11 +43,11 @@
       </div>
     </el-form-item>
     <el-form-item style="margin: 0;">
-      <div class="dfr-center">
+      <div class="display-flex align-items-center">
         <el-checkbox v-model="form.remember" border>记住密码</el-checkbox>
-        <div class="flex-1 ml5">
+        <div class="flex-1 m-l-5">
           <el-button
-            class="w100"
+            class="w-100n"
             :loading="loading"
             type="primary"
             @click="submitForm('LoginForm')"

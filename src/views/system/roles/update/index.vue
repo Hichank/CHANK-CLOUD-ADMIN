@@ -1,18 +1,12 @@
 <!-- 添加/编辑用户 -->
 <template>
   <div style="padding: 20px; background: #fff">
-    <SystemRolesForm
-      :loading="loading"
-      :options="options"
-      :form="form"
-      :rules="rules"
-      @submit="handleSubmit"
-    />
+    <SystemRolesForm :option="option" @submit="handleSubmit" />
   </div>
 </template>
 <script>
 import SystemRolesForm from "@/components/Form/System/Roles";
-import { ROLES_GET_ID, ROLES_POST, ROLES_PUT, ROUTES_GET } from "@/api";
+import { ROLES_GET_ID, ROLES_POST, ROLES_PUT, ROUTES_TREE } from "@/api";
 export default {
   name: "SystemRolesUpdate",
   props: {},
@@ -34,10 +28,19 @@ export default {
       },
     };
   },
-  computed: {},
+  computed: {
+    option() {
+      return {
+        loading: this.loading,
+        model: this.form,
+        rules: this.rules,
+        options: this.options,
+      };
+    },
+  },
   watch: {},
   created() {
-    this.getOptions([ROUTES_GET()]);
+    this.getOptions([ROUTES_TREE()]);
     if (this.$route.params.id) {
       this.getInfo(this.$route.params.id);
     }
@@ -56,7 +59,7 @@ export default {
       this.loading = true;
       Promise.all(PromiseArray)
         .then((response) => {
-          this.options.routes = (response[0] && response[0].data.data) || [];
+          this.options.routes = (response[0] && response[0].data) || [];
           this.loading = false;
         })
         .catch((error) => {

@@ -2,10 +2,7 @@
 <template>
   <div style="padding: 20px; background: #fff">
     <SystemUsersForm
-      :loading="loading"
-      :options="options"
-      :form="form"
-      :rules="rules"
+      :option="option"
       @upload-success="(response) => (form.avatar = response.url || '')"
       @submit="handleSubmit"
     />
@@ -56,7 +53,16 @@ export default {
       },
     };
   },
-  computed: {},
+  computed: {
+    option() {
+      return {
+        loading: this.loading,
+        model: this.form,
+        rules: this.rules,
+        options: this.options,
+      };
+    },
+  },
   watch: {},
   created() {
     this.getOptions([ROLES_GET()]);

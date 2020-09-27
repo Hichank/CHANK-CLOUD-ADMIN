@@ -1,6 +1,6 @@
 <!-- 模板顶部导航logo -->
 <template>
-  <el-row class="p10" type="flex" justify="center" align="middle">
+  <el-row class="p-10" type="flex" justify="center" align="middle">
     <img src="https://cn.vuejs.org/images/logo.png" alt="vue" width="40" height="40" />
   </el-row>
 </template>

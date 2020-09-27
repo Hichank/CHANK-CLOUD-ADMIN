@@ -1,53 +1,78 @@
 <!-- 权限列表 -->
 <template>
   <div style="padding: 20px; background: #fff">
-    <CrudTable
-      :loading="loading"
-      :data="data.data || []"
-      :options="options || []"
-      :sizes="[10, 20, 30]"
-      :current="params.page || 0"
-      :size="params.limit || 0"
-      :total="data.total || 0"
-      @search="handleSearch"
-      @add="handleAdd"
-      @edit="handleEdit"
-      @remove="handleRemove"
-      @current-change="handleCurrentChange"
-      @size-change="handleSizeChange"
-    />
+    <el-row>
+      <el-row type="flex">
+        <el-button
+          type="primary"
+          @click="$router.push({ path: `/system/roles/update` })"
+          v-if="
+            $store.getters.routes.some((h) => h === 'ROUTE-SYSTEM-ROLES-ADD')
+          "
+          >新增</el-button
+        >
+      </el-row>
+
+      <SystemRolesTable
+        :option="table"
+        @edit="handleTableEdit"
+        @del="handleTableDel"
+      />
+
+      <el-row type="flex" justify="end">
+        <el-pagination
+          v-bind="pagination"
+          @size-change="handlePaginationSizeChange"
+          @current-change="handlePaginationCurrentChange"
+        ></el-pagination>
+      </el-row>
+    </el-row>
   </div>
 </template>
 
 <script>
-import CrudTable from "@/components/Table/Crud";
+import SystemRolesTable from "@/components/Table/System/Roles";
 import { ROLES_GET, ROLES_DELECT } from "@/api";
 export default {
   name: "SystemRolesList",
   props: {},
   filters: {},
   components: {
-    CrudTable,
+    SystemRolesTable,
   },
   data: () => ({
     loading: false,
-    params: {
+    query: {
       where: {},
       page: 1,
       limit: 10,
+      populate: { path: "routes" },
     },
-    data: {},
-    options: [
-      { align: "center", prop: "_id", label: "ID" },
-      { align: "center", prop: "name", label: "权限名称", search: true },
-      { align: "center", prop: "createdAt", label: "创建时间" },
-      { align: "center", prop: "updatedAt", label: "更新时间" },
-    ],
+    response: {},
   }),
-  computed: {},
+  computed: {
+    // 表格
+    table() {
+      return {
+        loading: this.loading,
+        data: this.response.data || [],
+        stripe: true,
+      };
+    },
+    // 分页器
+    pagination() {
+      return {
+        currentPage: this.query.page || 1,
+        pageSize: this.query.limit || 10,
+        total: this.response.total || 0,
+        pageSizes: [10, 20, 30, 40, 50],
+        layout: "total, sizes, prev, pager, next, jumper",
+      };
+    },
+  },
   watch: {},
   created() {
-    this.getData();
+    this.fetchData();
   },
   mounted() {},
   beforeCreate() {},
@@ -59,59 +84,46 @@ export default {
   activated() {},
   methods: {
     // 获取数据
-    async getData() {
+    async fetchData() {
       try {
         this.loading = true;
-        const { data } = await ROLES_GET({ query: this.params });
-        this.data = data;
+        const { query } = this;
+        const { data } = await ROLES_GET({ query });
+        this.response = data;
       } catch (error) {
-        this.data = {};
         console.log(error);
       } finally {
         this.loading = false;
       }
     },
 
-    // 新增
-    handleAdd() {
+    // 表格
+    handleTableEdit(row) {
       this.$router.push({
-        path: "/system/roles/update",
+        path: `/system/roles/update/${row._id}`,
       });
     },
-    // 编辑
-    handleEdit(item) {
-      this.$router.push({
-        path: `/system/roles/update/${item._id}`,
-      });
-    },
-    // 删除
-    handleRemove(item) {
+    handleTableDel(row) {
       this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
       })
         .then(async () => {
-          await ROLES_DELECT(item._id);
-          this.getData();
+          await ROLES_DELECT(row._id);
+          this.fetchData();
         })
         .catch(() => {});
     },
 
-    // 搜索
-    handleSearch(where) {
-      this.params.where = where;
-      this.getData();
+    // 分页器
+    handlePaginationSizeChange(size) {
+      this.query.limit = size;
+      this.fetchData();
     },
-    // 分页页码
-    handleCurrentChange(page) {
-      this.params.page = page;
-      this.getData();
-    },
-    // 分页数量
-    handleSizeChange(limit) {
-      this.params.limit = limit;
-      this.getData();
+    handlePaginationCurrentChange(current) {
+      this.query.page = current;
+      this.fetchData();
     },
   },
 };

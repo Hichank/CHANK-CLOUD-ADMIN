@@ -42,3 +42,12 @@ export const ROLES_DELECT = id => {
         method: "DELETE",
     })
 }
+
+// 权限路由列表
+export const ROUTES_TREE = params => {
+    return service({
+        url: "/routes/tree",
+        method: "GET",
+        params
+    })
+}

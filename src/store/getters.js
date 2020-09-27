@@ -8,6 +8,7 @@ const getters = {
     username: state => state.auth.username,
     avatar: state => state.auth.avatar,
     roles: state => state.auth.roles,
+    routes: state => state.auth.routes,
     
     // 权限路由
     permission_routes: state => state.permission.routes,

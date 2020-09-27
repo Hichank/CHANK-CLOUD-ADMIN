@@ -19,13 +19,13 @@ router.beforeEach(async (to, from, next) => {
             next({ path: '/' });
             NProgress.done();
         } else {
-            if (store.getters.roles && store.getters.roles.length > 0) {
+            if (store.getters.routes && store.getters.routes.length > 0) {
                 next();
             } else {
                 try {
-                    const { roles } = await store.dispatch('auth/user');
-                    if (roles && roles.length > 0) {
-                        const accessRoutes = await store.dispatch('permission/generateRoutes', roles);
+                    const { routes } = await store.dispatch('auth/user');
+                    if (routes && routes.length > 0) {
+                        const accessRoutes = await store.dispatch('permission/generateRoutes', routes);
                         router.addRoutes(accessRoutes);
                         next({ ...to, replace: true });
                     } else {
