@@ -20,6 +20,7 @@ export default [{
             redirect: '/system/users/list',
             meta: {
                 title: '用户管理',
+                icon: "el-icon-user-solid",
                 breadcrumb: false,
                 code: "ROUTE-SYSTEM-USERS"
             },

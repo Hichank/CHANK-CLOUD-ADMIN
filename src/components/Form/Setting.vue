@@ -1,6 +1,6 @@
 <!-- 设置表单 -->
 <template>
-  <el-form class="p20" label-position="top" :size="$store.getters.size">
+  <el-form class="p-20" label-position="top" :size="$store.getters.size">
     <el-form-item label="样式尺寸">
       <SizePicker @change="handleSizePickerChange" />
     </el-form-item>

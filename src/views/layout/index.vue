@@ -1,7 +1,7 @@
 <!-- 默认布局 -->
 <template>
   <div class="layout-container">
-    <Sidebar />
+    <Sidebar style="z-index: 999;"/>
     <div class="layout-main-container" :style="style">
       <Navbar />
       <AppMain />

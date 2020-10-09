@@ -47,7 +47,6 @@ export default {
   data: () => ({}),
   computed: {
     ...mapGetters(["id", "avatar", "username", "roles"]),
-
   },
   watch: {},
   created() {},

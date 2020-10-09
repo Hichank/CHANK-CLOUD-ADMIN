@@ -74,9 +74,11 @@ export const constantRoutes = [
 ];
 
 import system from './modules/system';
+import operation from './modules/operation';
 
 // 权限路由
 export const asyncRoutes = [
+  ...operation,
   ...system,
   { path: '*', redirect: '/404', hidden: true }
 ]

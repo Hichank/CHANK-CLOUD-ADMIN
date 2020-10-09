@@ -1,8 +1,6 @@
 <!-- 收缩左侧导航栏按钮 -->
 <template>
-  <div class="p20 pointer dfr-center-all" @click="handleToggleSidebar">
-    <i :class="icon"></i>
-  </div>
+  <el-button :icon="icon" circle @click="handleToggleSidebar" size="medium"></el-button>
 </template>
 
 <script>
@@ -16,7 +14,7 @@ export default {
   computed: {
     ...mapGetters(["sidebar"]),
     icon() {
-      return this.sidebar.opened ? `el-icon-arrow-left` : `el-icon-arrow-right`;
+      return this.sidebar.opened ? `el-icon-s-fold` : `el-icon-s-unfold`;
     },
   },
   watch: {},

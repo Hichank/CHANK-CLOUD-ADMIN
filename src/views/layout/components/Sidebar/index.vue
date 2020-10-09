@@ -2,7 +2,6 @@
 <template>
   <div class="layout-sidebar-container" :style="style">
     <LayoutSidebarLogo />
-
     <div class="layout-sidebar-menu">
       <el-menu
         v-if="routes && routes.length > 0"
@@ -21,8 +20,7 @@
         />
       </el-menu>
     </div>
-
-    <HamburgerButton />
+    <Mine />
   </div>
 </template>
 
@@ -30,7 +28,8 @@
 import { mapGetters } from "vuex";
 import LayoutSidebarItem from "./SidebarItem";
 import LayoutSidebarLogo from "./logo";
-import HamburgerButton from "@/components/Button/Hamburger";
+import Mine from "@/components/Menu/Mine";
+
 export default {
   name: "LayoutSidebar",
   props: {},
@@ -38,7 +37,7 @@ export default {
   components: {
     LayoutSidebarLogo,
     LayoutSidebarItem,
-    HamburgerButton,
+    Mine,
   },
   data: () => ({}),
   computed: {

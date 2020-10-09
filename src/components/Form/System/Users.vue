@@ -4,7 +4,7 @@
     :model="option.model"
     :rules="option.rules"
     v-loading="option.loading"
-    ref="SystemUsersForm"
+    ref="systemUsersForm"
   >
     <el-form-item label="头像" prop="avatar" label-width="80px">
       <el-upload
@@ -60,7 +60,7 @@
       ></el-input>
     </el-form-item>
     <el-form-item label-width="80px">
-      <el-button type="primary" @click="submitForm('SystemUsersForm')"
+      <el-button type="primary" @click="submitForm('systemUsersForm')"
         >保存</el-button
       >
       <el-button @click="$router.back()">返回</el-button>

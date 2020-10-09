@@ -1,21 +1,29 @@
 <!-- 模板顶部导航 -->
 <template>
-  <div class="p-10 display-flex align-items-center justify-content-space-between">
-    <Breadcrumb />
-    <Mine />
+  <div class="p-10 display-flex align-items-center">
+    <div class="flex-1 display-flex align-items-center">
+      <HamburgerButton class="m-r-10"/>
+      <Breadcrumb class="m-r-10"/>
+    </div>
+    <div class="flex-1 display-flex align-items-center justify-content-flex-end">
+      <SettingButton />
+    </div>
   </div>
 </template>
 
 <script>
-import Mine from "@/components/Menu/Mine";
 import Breadcrumb from "@/components/Menu/Breadcrumb";
+import HamburgerButton from "@/components/Button/Hamburger";
+import SettingButton from "@/components/Button/Setting";
+
 export default {
   name: "LayoutNavbar",
   props: {},
   filters: {},
   components: {
-    Mine,
     Breadcrumb,
+    HamburgerButton,
+    SettingButton,
   },
   data: () => ({}),
   computed: {},
