@@ -12,6 +12,7 @@
 
       <OperationAdsTable
         :option="table"
+        @sort-change="handleSortChange"
         @edit="handleTableEdit"
         @del="handleTableDel"
       />
@@ -43,6 +44,7 @@ export default {
 
       // 请求参数
       query: {
+        sort: { sort: 1 },
         where: {},
         page: 1,
         limit: 10,
@@ -100,6 +102,22 @@ export default {
     },
 
     // 表格
+    handleSortChange({ prop, order }) {
+      switch (order) {
+        case null:
+          this.query.sort = null;
+          break;
+        case "ascending":
+          this.query.sort = { [prop]: 1 };
+          break;
+        case "descending":
+          this.query.sort = { [prop]: -1 };
+          break;
+        default:
+          break;
+      }
+      this.fetchData();
+    },
     async handleTableEdit(row) {
       this.$router.push({ path: `/operation/ads/update/${row._id}` });
     },

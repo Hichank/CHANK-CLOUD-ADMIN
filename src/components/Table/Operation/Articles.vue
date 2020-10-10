@@ -18,22 +18,15 @@
 
     <el-table-column
       align="center"
-      label="广告标题"
+      label="文章标题"
       prop="title"
     ></el-table-column>
 
-    <el-table-column align="center" label="广告图">
-      <template slot-scope="scope">
-        <el-image
-          style="width: 220px; height: 90px"
-          class="br-4"
-          lazy
-          fit="cover"
-          :src="scope.row.src"
-          :preview-src-list="[scope.row.src]"
-        ></el-image>
-      </template>
-    </el-table-column>
+    <el-table-column
+      align="center"
+      label="文章副标题"
+      prop="subtitle"
+    ></el-table-column>
 
     <el-table-column
       sortable
@@ -41,13 +34,14 @@
       label="创建时间"
       prop="createdAt"
     ></el-table-column>
-    
+
     <el-table-column
       sortable
       align="center"
       label="更新时间"
       prop="updatedAt"
     ></el-table-column>
+
     <el-table-column align="center" label="操作">
       <template slot-scope="scope">
         <el-button size="mini" type="success" @click="$emit('edit', scope.row)"
@@ -63,7 +57,7 @@
 
 <script>
 export default {
-  name: "OperationAdsTable",
+  name: "OperationArticlesTable",
   props: {
     option: {
       type: Object,

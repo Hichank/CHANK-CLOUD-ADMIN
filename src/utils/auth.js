@@ -46,26 +46,26 @@ export const removeUserInfo = () => {
 
 // SIDEBAR_OPENED
 export const getSidebarOpened = () => {
-    return Cookies.get(SIDEBAR_OPENED);
+    return localStorage.getItem(SIDEBAR_OPENED);
 }
 
 export const setSidebarOpened = (data) => {
-    return Cookies.set(SIDEBAR_OPENED, data);
+    return localStorage.setItem(SIDEBAR_OPENED, data);
 }
 
 export const removeSidebarOpened = () => {
-    return Cookies.remove(SIDEBAR_OPENED);
+    return localStorage.removeItem(SIDEBAR_OPENED);
 }
 
 // SIZE
 export const getSize = () => {
-    return Cookies.get(SIZE);
+    return localStorage.getItem(SIZE);
 }
 
 export const setSize = (data) => {
-    return Cookies.set(SIZE, data);
+    return localStorage.setItem(SIZE, data);
 }
 
 export const removeSize = () => {
-    return Cookies.remove(SIZE);
+    return localStorage.removeItem(SIZE);
 }

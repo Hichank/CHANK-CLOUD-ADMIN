@@ -6,6 +6,7 @@
       label="用户名"
       prop="username"
     ></el-table-column>
+
     <el-table-column align="center" label="权限">
       <template slot-scope="scope">
         <template v-if="scope.row.roles && scope.row.roles.length > 0">
@@ -18,10 +19,12 @@
         </template>
       </template>
     </el-table-column>
+
     <el-table-column align="center" label="头像">
       <template slot-scope="scope">
         <el-image
           style="width: 60px; height: 60px"
+          class="br-4"
           lazy
           fit="cover"
           :src="scope.row.avatar"
