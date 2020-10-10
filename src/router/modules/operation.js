@@ -8,6 +8,7 @@ export default [{
     meta: {
         title: '运营管理',
         icon: "el-icon-s-operation",
+        code: "ROUTE-OPERATION"
     },
     children: [
         // 广告管理
@@ -21,6 +22,7 @@ export default [{
                 title: '广告管理',
                 icon: "el-icon-data-line",
                 breadcrumb: false,
+                code: "ROUTE-OPERATION-ADS"
             },
             children: [
                 {
@@ -31,6 +33,7 @@ export default [{
                     meta: {
                         title: '广告管理',
                         icon: "el-icon-data-line",
+                        code: "ROUTE-OPERATION-ADS"
                     },
                 },
                 {
@@ -41,6 +44,7 @@ export default [{
                         import(/* webpackChunkName: "OperationAdsAdd" */ "@/views/operation/ads/update"),
                     meta: {
                         title: '添加广告',
+                        code: "ROUTE-OPERATION-ADS-ADD"
                     }
                 },
                 {
@@ -51,6 +55,7 @@ export default [{
                         import(/* webpackChunkName: "OperationAdsEdit" */ "@/views/operation/ads/update"),
                     meta: {
                         title: '编辑广告',
+                        code: "ROUTE-OPERATION-ADS-EDIT"
                     }
                 },
             ]
@@ -67,6 +72,7 @@ export default [{
                 title: '文章管理',
                 icon: "el-icon-notebook-1",
                 breadcrumb: false,
+                code: "ROUTE-OPERATION-ARTICLES"
             },
             children: [
                 {
@@ -77,6 +83,7 @@ export default [{
                     meta: {
                         title: '文章管理',
                         icon: "el-icon-notebook-1",
+                        code: "ROUTE-OPERATION-ARTICLES"
                     },
                 },
                 {
@@ -87,6 +94,7 @@ export default [{
                         import(/* webpackChunkName: "OperationArticlesAdd" */ "@/views/operation/articles/update"),
                     meta: {
                         title: '添加文章',
+                        code: "ROUTE-OPERATION-ARTICLES-ADD"
                     }
                 },
                 {
@@ -97,6 +105,7 @@ export default [{
                         import(/* webpackChunkName: "OperationArticlesEdit" */ "@/views/operation/articles/update"),
                     meta: {
                         title: '编辑文章',
+                        code: "ROUTE-OPERATION-ARTICLES-EDIT"
                     }
                 },
             ]

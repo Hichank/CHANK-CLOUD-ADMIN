@@ -1,8 +1,8 @@
 <!-- 搜索表单 -->
 <template>
   <el-form inline :model="form">
-    <el-form-item label="用户名">
-      <el-input v-model.trim="form.username" clearable></el-input>
+    <el-form-item label="权限名称">
+      <el-input v-model.trim="form.name" clearable></el-input>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="handleSubmit">查询</el-button>
@@ -12,13 +12,13 @@
 
 <script>
 export default {
-  name: "SystemUsersSearch",
+  name: "SystemRolesSearch",
   props: {},
   filters: {},
   components: {},
   data: () => ({
     form: {
-      username: "",
+      name: "",
     },
   }),
   computed: {},

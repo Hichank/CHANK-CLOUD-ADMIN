@@ -2,16 +2,7 @@
 <template>
   <div style="padding: 20px; background: #fff">
     <el-row>
-      <el-row type="flex">
-        <el-button
-          type="primary"
-          @click="$router.push({ path: `/system/roles/update` })"
-          v-if="
-            $store.getters.routes.some((h) => h === 'ROUTE-SYSTEM-ROLES-ADD')
-          "
-          >新增</el-button
-        >
-      </el-row>
+      <SystemRolesSearch @submit="handleSeachSubmit"/>
 
       <SystemRolesTable
         :option="table"
@@ -32,6 +23,7 @@
 
 <script>
 import SystemRolesTable from "@/components/Table/System/Roles";
+import SystemRolesSearch from "@/components/Search/System/Roles";
 import { ROLES_GET, ROLES_DELECT } from "@/api";
 export default {
   name: "SystemRolesList",
@@ -39,6 +31,7 @@ export default {
   filters: {},
   components: {
     SystemRolesTable,
+    SystemRolesSearch
   },
   data: () => ({
     loading: false,
@@ -95,6 +88,12 @@ export default {
       } finally {
         this.loading = false;
       }
+    },
+
+    // 搜索
+    handleSeachSubmit(where) {
+      this.query.where = where;
+      this.fetchData();
     },
 
     // 表格

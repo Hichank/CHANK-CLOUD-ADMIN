@@ -2,13 +2,7 @@
 <template>
   <div style="padding: 20px; background: #fff">
     <el-row>
-      <el-row type="flex">
-        <el-button
-          type="primary"
-          @click="$router.push({ path: `/operation/articles/update` })"
-          >新增</el-button
-        >
-      </el-row>
+      <OperationArticlesSearch @submit="handleSeachSubmit" />
 
       <OperationArticlesTable
         :option="table"
@@ -31,11 +25,13 @@
 <script>
 import { ARTICLES_GET, ARTICLES_DELECT } from "@/api";
 import OperationArticlesTable from "@/components/Table/Operation/Articles";
+import OperationArticlesSearch from "@/components/Search/Operation/Articles";
 export default {
   name: "OperationArticlesList",
   props: {},
   components: {
     OperationArticlesTable,
+    OperationArticlesSearch,
   },
   data() {
     return {
@@ -98,6 +94,12 @@ export default {
       } finally {
         this.loading = false;
       }
+    },
+
+    // 搜索
+    handleSeachSubmit(where) {
+      this.query.where = where;
+      this.fetchData();
     },
 
     // 表格

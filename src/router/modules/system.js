@@ -70,6 +70,7 @@ export default [{
             meta: {
                 title: '权限管理',
                 breadcrumb: false,
+                icon: "el-icon-key",
                 code: "ROUTE-SYSTEM-ROLES"
             },
             children: [

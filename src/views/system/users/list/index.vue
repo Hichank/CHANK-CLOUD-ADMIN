@@ -2,16 +2,7 @@
 <template>
   <div style="padding: 20px; background: #fff">
     <el-row>
-      <el-row type="flex">
-        <el-button
-          type="primary"
-          @click="$router.push({ path: `/system/users/update` })"
-          v-if="
-            $store.getters.routes.some((h) => h === 'ROUTE-SYSTEM-USERS-ADD')
-          "
-          >新增</el-button
-        >
-      </el-row>
+      <SystemUsersSearch @submit="handleSeachSubmit" />
 
       <SystemUsersTable
         :option="table"
@@ -33,12 +24,14 @@
 <script>
 import { USERS_GET, USERS_DELECT } from "@/api";
 import SystemUsersTable from "@/components/Table/System/Users";
+import SystemUsersSearch from "@/components/Search/System/Users";
 export default {
   name: "SystemUsersList",
   props: {},
   filters: {},
   components: {
     SystemUsersTable,
+    SystemUsersSearch,
   },
   data() {
     return {
@@ -101,6 +94,12 @@ export default {
       } finally {
         this.loading = false;
       }
+    },
+
+    // 搜索
+    handleSeachSubmit(where) {
+      this.query.where = where;
+      this.fetchData();
     },
 
     // 表格

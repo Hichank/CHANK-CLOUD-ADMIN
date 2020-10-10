@@ -2,13 +2,7 @@
 <template>
   <div style="padding: 20px; background: #fff">
     <el-row>
-      <el-row type="flex">
-        <el-button
-          type="primary"
-          @click="$router.push({ path: `/operation/ads/update` })"
-          >新增</el-button
-        >
-      </el-row>
+      <OperationAdsSearch @submit="handleSeachSubmit" />
 
       <OperationAdsTable
         :option="table"
@@ -31,12 +25,14 @@
 <script>
 import { ADS_GET, ADS_DELECT } from "@/api";
 import OperationAdsTable from "@/components/Table/Operation/Ads";
+import OperationAdsSearch from "@/components/Search/Operation/Ads";
 export default {
   name: "OperationAdsList",
   props: {},
   filters: {},
   components: {
     OperationAdsTable,
+    OperationAdsSearch,
   },
   data() {
     return {
@@ -99,6 +95,12 @@ export default {
       } finally {
         this.loading = false;
       }
+    },
+
+    // 搜索
+    handleSeachSubmit(where) {
+      this.query.where = where;
+      this.fetchData();
     },
 
     // 表格
